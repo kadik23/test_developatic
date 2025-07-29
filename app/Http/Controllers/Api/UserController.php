@@ -67,9 +67,17 @@ class UserController extends Controller
 
             $users = $this->userRepository->getUsersWithPagination($perPage, $search, $sortBy, $sortOrder);
 
+            $userData = collect($users->items())->map(function ($user) {
+                $userArray = $user->toArray();
+                if (!empty($userArray['date_of_birth'])) {
+                    $userArray['date_of_birth'] = date('Y-m-d', strtotime($userArray['date_of_birth']));
+                }
+                return $userArray;
+            })->values()->all();
+
             return response()->json([
                 'success' => true,
-                'data' => $users->items(),
+                'data' => $userData,
                 'pagination' => [
                     'total' => $users->total(),
                     'per_page' => $users->perPage(),

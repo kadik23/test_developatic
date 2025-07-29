@@ -154,7 +154,6 @@ export default function UsersIndex({ users, filters }: UsersIndexProps) {
             </Col>
           </Row>
         </Card>
-        {/* Users Table */}
         <Card style={{ background: '#0B1739', border: '1px solid #AEB9E1', borderRadius: 8 }}>
           <Table
             columns={columns}
@@ -168,7 +167,6 @@ export default function UsersIndex({ users, filters }: UsersIndexProps) {
               }
             }}
           />
-          {/* Custom Pagination */}
           <div style={{ marginTop: 16, textAlign: 'center' }}>
             <Pagination
               current={users.current_page}

@@ -27,10 +27,16 @@ class UserController extends Controller
         $sortOrder = $request->get('sort_order', 'desc');
 
         $users = $this->userRepository->getUsersWithPagination($perPage, $search, $sortBy, $sortOrder);
-
+        $userData = collect($users->items())->map(function ($user) {
+            $userArray = $user->toArray();
+            if (!empty($userArray['date_of_birth'])) {
+                $userArray['date_of_birth'] = date('Y-m-d', strtotime($userArray['date_of_birth']));
+            }
+            return $userArray;
+        })->values()->all();
         return Inertia::render('Users/Index', [
             'users' => [
-                "data" => $users->items(),
+                "data" => $userData,
                 "total" => $users->total(),
                 "current_page" => $users->currentPage(),
                 "per_page" => $users->perPage(),
