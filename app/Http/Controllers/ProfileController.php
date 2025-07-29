@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\ChangePasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -27,47 +29,28 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'date_of_birth' => 'nullable|date|before:today',
-        ]);
-
-        $updated = $this->userRepository->updateUser($user->id, $request->only([
-            'name', 'email', 'date_of_birth'
-        ]));
-
+        $data = $request->validated();
+        $updated = $this->userRepository->updateUser($user->id, $data);
         if ($updated) {
             return back()->with('success', 'Profile information updated successfully!');
         }
-
         return back()->with('error', 'Failed to update profile. Please try again.');
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(ChangePasswordRequest $request)
     {
         $user = Auth::user();
-
-        $request->validate([
-            'current_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed',
-            'new_password_confirmation' => 'required|string|min:8',
-        ]);
-
-        if (!Hash::check($request->current_password, $user->password)) {
+        $data = $request->validated();
+        if (!Hash::check($data['current_password'], $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect']);
         }
-
-        $updated = $this->userRepository->updatePassword($user->id, $request->new_password);
-
+        $updated = $this->userRepository->updatePassword($user->id, $data['new_password']);
         if ($updated) {
             return back()->with('success', 'Password changed successfully! Please remember your new password.');
         }
-
         return back()->with('error', 'Failed to change password. Please try again.');
     }
 } 

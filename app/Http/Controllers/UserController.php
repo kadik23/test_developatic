@@ -7,6 +7,8 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
