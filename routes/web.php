@@ -7,11 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
-
-// Redirect to API documentation
 Route::get('/api-docs', function () {
     return redirect('/docs');
 });
