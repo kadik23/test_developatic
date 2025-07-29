@@ -1,6 +1,5 @@
 import { useForm, router } from '@inertiajs/react';
 import { useNotifications } from '@/hooks/useNotifications';
-import { useCallback } from 'react';
 
 export function useProfileForm(user: { id: number; name: string; email: string; date_of_birth: string | null; }) {
   const { data, setData, processing, errors } = useForm({
@@ -10,7 +9,7 @@ export function useProfileForm(user: { id: number; name: string; email: string; 
   });
   const { showSuccess, showError } = useNotifications();
 
-  const handleSubmit = useCallback((values: any) => {
+  const handleSubmit = (values: any) => {
     const formData = {
       name: values.name,
       email: values.email,
@@ -25,7 +24,7 @@ export function useProfileForm(user: { id: number; name: string; email: string; 
         showError(errorMessage, 'Update Failed');
       },
     });
-  }, [showSuccess, showError]);
+  };
 
   return {
     data,
