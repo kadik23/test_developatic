@@ -16,7 +16,7 @@ This is a Laravel application with a modern frontend stack including Inertia.js,
 - PHP 8.2+
 - Node.js 20+
 - Composer
-- npm or yarn
+- npm
 
 ## Installation
 
@@ -35,6 +35,7 @@ This is a Laravel application with a modern frontend stack including Inertia.js,
    ```bash
    cp .env.example .env
    ```
+   and set your config for development
 
 5. Generate application key:
    ```bash
@@ -43,7 +44,12 @@ This is a Laravel application with a modern frontend stack including Inertia.js,
 
 6. Run database migrations:
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
+   ```
+6. Remove production force settings:
+    -> go to app.blade.php and comment Content-Security-Policy meta
+   ```bash
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
    ```
 
 ## Development
@@ -80,20 +86,6 @@ npm run type-check
 - `resources/js/app.tsx` - Main React application entry point
 - `routes/web.php` - Laravel routes using Inertia
 - `app/Http/Middleware/HandleInertiaRequests.php` - Inertia middleware
-
-## Available Scripts
-
-- `npm run dev` - Start Vite development server
-- `npm run build` - Build for production
-- `npm run type-check` - Run TypeScript type checking
-
-## Technologies Used
-
-- **Backend**: Laravel 11, PHP 8.2+
-- **Frontend**: React 19, TypeScript, Inertia.js
-- **UI**: Ant Design, Tailwind CSS
-- **Build Tool**: Vite
-- **Package Manager**: npm
 
 ## License
 
