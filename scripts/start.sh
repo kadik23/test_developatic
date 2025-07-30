@@ -18,6 +18,13 @@ php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
+# Force HTTPS in production
+if [ "$APP_ENV" = "production" ]; then
+    echo "# Forcing HTTPS in production..."
+    php artisan config:set app.url=https://test-developatic.onrender.com
+    php artisan config:set app.force_https=true
+fi
+
 # # Simple PostgreSQL reset - separate statements
 # echo "# Resetting database completely..."
 # php artisan tinker --execute="DB::statement('DROP SCHEMA public CASCADE');" || true

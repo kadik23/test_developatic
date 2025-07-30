@@ -20,12 +20,12 @@
                 $manifest = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : null;
             @endphp
             @if($manifest)
-                <link rel="stylesheet" href="{{ asset('build/' . $manifest['resources/css/app.css']['file']) }}">
-                <script type="module" src="{{ asset('build/' . $manifest['resources/js/app.tsx']['file']) }}"></script>
+                <link rel="stylesheet" href="{{ secure_asset('build/' . $manifest['resources/css/app.css']['file']) }}">
+                <script type="module" src="{{ secure_asset('build/' . $manifest['resources/js/app.tsx']['file']) }}"></script>
             @else
                 <!-- Fallback if manifest not found -->
-                <link rel="stylesheet" href="{{ asset('build/assets/app-hhgyBM9B.css') }}">
-                <script type="module" src="{{ asset('build/assets/app-C-Xoxr-_.js') }}"></script>
+                <link rel="stylesheet" href="{{ secure_asset('build/assets/app-DsCOe7X4.css') }}">
+                <script type="module" src="{{ secure_asset('build/assets/app-DcpsJ0sl.js') }}"></script>
             @endif
         @endif
         
