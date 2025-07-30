@@ -70,13 +70,13 @@ return [
         'assets_directory' => null,
 
         // Middleware to attach to the docs endpoint (if `add_routes` is true).
-        'middleware' => [],
+        'middleware' => ['scribe.csp'],
     ],
 
     'external' => [
         'html_attributes' => [
             'meta' => [
-                'http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"'
+                'http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'unsafe-inline\' \'unsafe-eval\'; style-src \'self\' \'unsafe-inline\' https:; font-src \'self\' https: data:; img-src \'self\' data: https:; connect-src \'self\' https:; upgrade-insecure-requests"'
             ]
         ]
     ],

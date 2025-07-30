@@ -7,7 +7,7 @@ echo "# Generating JWT secret..."
 php artisan jwt:secret
 
 echo "# Generating Scribe..."
-php artisan scribe:generate
+php artisan scribe:generate --force
 
 echo "# Linking storage..."
 php artisan storage:link
