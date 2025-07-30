@@ -23,6 +23,9 @@ if [ "$APP_ENV" = "production" ]; then
     echo "# Forcing HTTPS in production..."
     php artisan config:set app.url=https://test-developatic.onrender.com
     php artisan config:set app.force_https=true
+    php artisan config:set app.secure_headers=true
+    # Force HTTPS for all asset URLs
+    php artisan config:set app.force_asset_https=true
 fi
 
 # # Simple PostgreSQL reset - separate statements

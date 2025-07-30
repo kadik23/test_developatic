@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
@@ -18,14 +19,15 @@
             @php
                 $manifestPath = public_path('build/manifest.json');
                 $manifest = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : null;
+                $baseUrl = 'https://test-developatic.onrender.com';
             @endphp
             @if($manifest)
-                <link rel="stylesheet" href="{{ secure_asset('build/' . $manifest['resources/css/app.css']['file']) }}">
-                <script type="module" src="{{ secure_asset('build/' . $manifest['resources/js/app.tsx']['file']) }}"></script>
+                <link rel="stylesheet" href="{{ $baseUrl }}/build/{{ $manifest['resources/css/app.css']['file'] }}">
+                <script type="module" src="{{ $baseUrl }}/build/{{ $manifest['resources/js/app.tsx']['file'] }}"></script>
             @else
                 <!-- Fallback if manifest not found -->
-                <link rel="stylesheet" href="{{ secure_asset('build/assets/app-DsCOe7X4.css') }}">
-                <script type="module" src="{{ secure_asset('build/assets/app-DcpsJ0sl.js') }}"></script>
+                <link rel="stylesheet" href="{{ $baseUrl }}/build/assets/app-DsCOe7X4.css">
+                <script type="module" src="{{ $baseUrl }}/build/assets/app-DcpsJ0sl.js"></script>
             @endif
         @endif
         
