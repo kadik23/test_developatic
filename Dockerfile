@@ -23,6 +23,9 @@ WORKDIR /app
 # Copy the entire application first
 COPY . .
 
+# Copy environment file
+COPY .env.example .env
+
 # Set production environment
 ENV APP_ENV=production
 ENV VITE_APP_ENV=production
