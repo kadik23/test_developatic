@@ -17,6 +17,7 @@ echo "# Setting up database..."
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
+php artisan cache:clear
 
 # Force HTTPS in production
 if [ "$APP_ENV" = "production" ]; then

@@ -17,16 +17,17 @@ class ScribeCspMiddleware
     {
         $response = $next($request);
 
-        // Set a more permissive CSP for Scribe documentation
-        $response->headers->set('Content-Security-Policy', 
-            "default-src 'self'; " .
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " .
-            "style-src 'self' 'unsafe-inline' https: data:; " .
-            "font-src 'self' https: data:; " .
-            "img-src 'self' data: https:; " .
-            "connect-src 'self' https:; " .
-            "upgrade-insecure-requests"
-        );
+        if ($request->is('docs*') || $request->is('api-docs*')) {
+            $response->headers->set('Content-Security-Policy', 
+                "default-src 'self'; " .
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " .
+                "style-src 'self' 'unsafe-inline' https: data:; " .
+                "font-src 'self' https: data:; " .
+                "img-src 'self' data: https:; " .
+                "connect-src 'self' https:; " .
+                "upgrade-insecure-requests"
+            );
+        }
 
         return $response;
     }
