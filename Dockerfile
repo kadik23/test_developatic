@@ -33,6 +33,12 @@ ENV VITE_APP_ENV=production
 # Install PHP dependencies (including dev dependencies for documentation)
 RUN composer install --optimize-autoloader --no-interaction
 
+# Install Node.js dependencies and build frontend assets with memory optimization
+RUN npm install && NODE_OPTIONS="--max-old-space-size=512" npm run build
+
+# Generate API documentation
+RUN php artisan scribe:generate
+
 # Set proper permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 

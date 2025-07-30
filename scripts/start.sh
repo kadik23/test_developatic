@@ -35,9 +35,14 @@ php artisan view:clear
 # echo "# Seeding database..."
 # php artisan db:seed --force
 
-echo "# Building frontend assets..."
-npm install
-npm run build
+echo "# Checking and building frontend assets..."
+if [ ! -f "public/build/manifest.json" ]; then
+    echo "# Manifest not found, building assets with memory optimization..."
+    npm install
+    NODE_OPTIONS="--max-old-space-size=512" npm run build
+else
+    echo "# Manifest found, skipping build..."
+fi
 
 echo "# Starting the PHP application..."
 php artisan serve --host=0.0.0.0 --port=8000
