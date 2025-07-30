@@ -13,9 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory(1000)->create();
+        // Create admin user first
         User::create([
             'name' => 'Admin',
             'email' => 'admin@something.com',
@@ -23,5 +21,7 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => '1980-01-01',
             'user_type' => 'ADMIN',
         ]);
+
+        User::factory(1000)->create();
     }
 }
