@@ -27,10 +27,10 @@ export default function Login({ errors, status }: LoginProps) {
           <div className="w-full max-w-md">
               <Card className="bg-[#0B1739] border border-[#AEB9E1] rounded-xl shadow-2xl">
               <div className="text-center mb-6 sm:mb-8">
-                  <div className="text-3xl sm:text-5xl text-primary mb-3 sm:mb-4 font-bold">
+                  <div className="text-3xl sm:text-5xl text-[#CB3CFF] mb-3 sm:mb-4 font-bold">
                       Admin
                   </div>
-                  <Title level={2} className="text-primary m-0 text-xl sm:text-2xl">
+                  <Title level={2} className="text-[#CB3CFF] m-0 text-xl sm:text-2xl">
                       Welcome Back
                   </Title>
                   <Text className="text-[#AEB9E1] text-sm sm:text-base">
@@ -80,7 +80,7 @@ export default function Login({ errors, status }: LoginProps) {
                           type="primary"
                           htmlType="submit"
                           loading={processing}
-                          className="bg-primary border-primary text-white h-10 sm:h-12 w-full text-sm sm:text-base font-bold"
+                          className="bg-[#CB3CFF] border-[#CB3CFF] text-white h-10 sm:h-12 w-full text-sm sm:text-base font-bold"
                           icon={<LoginOutlined />}
                       >
                           Sign In
