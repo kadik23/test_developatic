@@ -1,5 +1,6 @@
 import { Form, Input, Button, Card, Typography, Layout } from 'antd';
 import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
+import { Head } from '@inertiajs/react';
 import FlashMessage from '@/Components/FlashMessage';
 import { useLoginForm } from '@/hooks/useLoginForm';
 
@@ -18,110 +19,78 @@ export default function Login({ errors, status }: LoginProps) {
   const { data, setData, processing, handleSubmit } = useLoginForm(errors, status);
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#081028' }}>
-      <FlashMessage flash={{}} />
-      <Content style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        padding: '24px'
-      }}>
-        <div style={{ width: '100%', maxWidth: '400px' }}>
-            <Card 
-                style={{ 
-                background: '#0B1739', 
-                border: '1px solid #AEB9E1', 
-                borderRadius: '12px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
-                }}
-            >
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                <div style={{ 
-                    fontSize: '48px', 
-                    color: '#CB3CFF', 
-                    marginBottom: '16px',
-                    fontWeight: 'bold'
-                }}>
-                    Admin
-                </div>
-                <Title level={2} style={{ color: '#CB3CFF', margin: 0 }}>
-                    Welcome Back
-                </Title>
-                <Text style={{ color: '#AEB9E1', fontSize: '16px' }}>
-                    Sign in to your admin account
-                </Text>
-            </div>
+    <>
+      <Head title="Login - Admin Dashboard" />
+      <Layout className="min-h-screen bg-[#081028]">
+        <FlashMessage flash={{}} />
+        <Content className="flex items-center justify-center p-4 sm:p-6">
+          <div className="w-full max-w-md">
+              <Card className="bg-[#0B1739] border border-[#AEB9E1] rounded-xl shadow-2xl">
+              <div className="text-center mb-6 sm:mb-8">
+                  <div className="text-3xl sm:text-5xl text-primary mb-3 sm:mb-4 font-bold">
+                      Admin
+                  </div>
+                  <Title level={2} className="text-primary m-0 text-xl sm:text-2xl">
+                      Welcome Back
+                  </Title>
+                  <Text className="text-[#AEB9E1] text-sm sm:text-base">
+                      Sign in to your admin account
+                  </Text>
+              </div>
 
-            <Form
-                layout="vertical"
-                onFinish={handleSubmit}
-                size="large"
-                initialValues={data}
-            >
-              <Form.Item
-                label={<span style={{ color: '#AEB9E1' }}>Email</span>}
-                name="email"
-                rules={[
-                  { required: true, message: 'Please enter your email' },
-                  { type: 'email', message: 'Please enter a valid email' }
-                ]}
+              <Form
+                  layout="vertical"
+                  onFinish={handleSubmit}
+                  size="large"
+                  initialValues={data}
               >
-                <Input
-                    prefix={<UserOutlined style={{ color: '#AEB9E1' }} />}
-                    placeholder="Enter your email"
-                    style={{ 
-                        background: '#081028', 
-                        border: '1px solid #AEB9E1', 
-                        color: '#fff',
-                        height: '48px'
-                    }}
-                    value={data.email}
-                    onChange={e => setData('email', e.target.value)}
-                />
-                </Form.Item>
-
                 <Form.Item
-                    label={<span style={{ color: '#AEB9E1' }}>Password</span>}
-                    name="password"
-                    rules={[{ required: true, message: 'Please enter your password' }]}
+                  label={<span className="text-[#AEB9E1]">Email</span>}
+                  name="email"
+                  rules={[
+                    { required: true, message: 'Please enter your email' },
+                    { type: 'email', message: 'Please enter a valid email' }
+                  ]}
                 >
-                    <Input.Password
-                        prefix={<LockOutlined style={{ color: '#AEB9E1' }} />}
-                        placeholder="Enter your password"
-                        style={{ 
-                            background: '#081028', 
-                            border: '1px solid #AEB9E1', 
-                            color: '#fff',
-                            height: '48px'
-                        }}
-                        value={data.password}
-                        onChange={e => setData('password', e.target.value)}
-                    />
-                </Form.Item>
+                  <Input
+                      prefix={<UserOutlined className="text-[#AEB9E1]" />}
+                      placeholder="Enter your email"
+                      className="bg-[#081028] border border-[#AEB9E1] text-white h-10 sm:h-12"
+                      value={data.email}
+                      onChange={e => setData('email', e.target.value)}
+                  />
+                  </Form.Item>
 
-                <Form.Item>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        loading={processing}
-                        style={{
-                            background: '#CB3CFF',
-                            borderColor: '#CB3CFF',
-                            color: '#fff',
-                            height: '48px',
-                            width: '100%',
-                            fontSize: '16px',
-                            fontWeight: 'bold'
-                        }}
-                        icon={<LoginOutlined />}
-                    >
-                        Sign In
-                    </Button>
-                </Form.Item>
-            </Form>
-            </Card>
-            </div>
-        </Content>
-    </Layout>
+                  <Form.Item
+                      label={<span className="text-[#AEB9E1]">Password</span>}
+                      name="password"
+                      rules={[{ required: true, message: 'Please enter your password' }]}
+                  >
+                      <Input.Password
+                          prefix={<LockOutlined className="text-[#AEB9E1]" />}
+                          placeholder="Enter your password"
+                          className="bg-[#081028] border border-[#AEB9E1] text-white h-10 sm:h-12"
+                          value={data.password}
+                          onChange={e => setData('password', e.target.value)}
+                      />
+                  </Form.Item>
+
+                  <Form.Item>
+                      <Button
+                          type="primary"
+                          htmlType="submit"
+                          loading={processing}
+                          className="bg-primary border-primary text-white h-10 sm:h-12 w-full text-sm sm:text-base font-bold"
+                          icon={<LoginOutlined />}
+                      >
+                          Sign In
+                      </Button>
+                  </Form.Item>
+              </Form>
+              </Card>
+              </div>
+          </Content>
+      </Layout>
+    </>
   );
 } 

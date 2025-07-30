@@ -26,7 +26,6 @@ class UserRepository
         $standardUsers = $this->model->where('user_type', 'STANDARD')->count();        
         $ageDistribution = $this->getUsersByAgeRange();
         
-        // Calculate average age using PHP instead of MySQL-specific functions
         $usersWithBirthDate = $this->model->whereNotNull('date_of_birth')->get();
         $totalAge = 0;
         $countWithAge = 0;

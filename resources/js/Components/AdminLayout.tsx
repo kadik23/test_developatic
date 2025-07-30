@@ -1,6 +1,6 @@
-import React from 'react';
-import { Layout, Menu, Typography } from 'antd';
-import { UserOutlined, DashboardOutlined, LogoutOutlined, SettingOutlined, LockOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Layout, Menu, Typography, Button } from 'antd';
+import { UserOutlined, DashboardOutlined, LogoutOutlined, SettingOutlined, LockOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Link } from '@inertiajs/react';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -13,6 +13,8 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children, title, selectedKey }: AdminLayoutProps) {
+  const [collapsed, setCollapsed] = useState(false);
+
   const menuItems = [
     { 
       key: 'dashboard', 
@@ -42,27 +44,50 @@ export default function AdminLayout({ children, title, selectedKey }: AdminLayou
   ];
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#081028' }}>
-      <Sider width={220} style={{ background: '#0B1739' }}>
-        <div style={{ height: 64, margin: 16, color: '#CB3CFF', fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>
-          Admin
+    <Layout className="min-h-screen bg-[#081028]">
+      <Sider 
+        width={220} 
+        collapsedWidth={80}
+        collapsible 
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+        className="bg-[#0B1739]"
+        breakpoint="lg"
+        onBreakpoint={(broken) => {
+          if (broken) {
+            setCollapsed(true);
+          }
+        }}
+      >
+        <div className={`h-16 m-4 text-primary font-bold text-center flex items-center justify-center ${collapsed ? 'text-base' : 'text-2xl'}`}>
+          {collapsed ? 'A' : 'Admin'}
         </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[selectedKey]}
-          style={{ background: '#0B1739', color: '#AEB9E1' }}
+          className="bg-[#0B1739] text-[#AEB9E1]"
           items={menuItems}
         />
       </Sider>
       <Layout>
-        <Header style={{ background: '#0B1739', padding: '0 24px', display: 'flex', alignItems: 'center' }}>
-          <Title level={3} style={{ color: '#CB3CFF', margin: 0, flex: 1 }}>{title}</Title>
+        <Header className="bg-[#0B1739] px-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              className="text-primary text-base block lg:hidden"
+            />
+            <Title level={3} className="text-primary m-0 text-lg sm:text-xl md:text-2xl">
+              {title}
+            </Title>
+          </div>
         </Header>
-        <Content style={{ margin: '32px', background: '#0B1739', borderRadius: 12, boxShadow: '0 4px 32px #0008' }}>
+        <Content className="m-2 sm:m-4 md:m-6 lg:m-8 bg-[#0B1739] rounded-xl shadow-lg overflow-auto">
           {children}
         </Content>
-        <Footer style={{ background: '#0B1739', color: '#AEB9E1', textAlign: 'center' }}>
+        <Footer className="bg-[#0B1739] text-[#AEB9E1] text-center px-4 py-2 sm:px-6">
           &copy; {new Date().getFullYear()} Admin Dashboard
         </Footer>
       </Layout>
