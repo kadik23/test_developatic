@@ -6,9 +6,6 @@ php artisan key:generate
 echo "# Generating JWT secret..."
 php artisan jwt:secret
 
-echo "# Generating Scribe..."
-php artisan scribe:generate
-
 echo "# Linking storage..."
 php artisan storage:link
 
