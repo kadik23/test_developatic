@@ -74,7 +74,11 @@ return [
     ],
 
     'external' => [
-        'html_attributes' => []
+        'html_attributes' => [
+            'meta' => [
+                'http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"'
+            ]
+        ]
     ],
 
     'try_it_out' => [

@@ -26,6 +26,10 @@ if [ "$APP_ENV" = "production" ]; then
     php artisan config:set app.secure_headers=true
     # Force HTTPS for all asset URLs
     php artisan config:set app.force_asset_https=true
+    
+    # Force HTTPS for Scribe documentation
+    php artisan config:set scribe.base_url=https://test-developatic.onrender.com
+    php artisan config:set scribe.force_https=true
 fi
 
 # # Simple PostgreSQL reset - separate statements
